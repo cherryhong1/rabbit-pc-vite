@@ -7,3 +7,10 @@ export const findBrand = (limit) => {
 export const findBanner = () => {
   return request('/home/banner')
 }
+
+export const findNew = () => {
+  return request('/home/new')
+}
+export const findHot = () => {
+  return request('/home/hot')
+}
