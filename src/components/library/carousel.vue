@@ -81,7 +81,6 @@ const start = () => {
 };
 
 const toggle = (step) => {
-  console.log('step',step)
   // 将要改变的索引
   const newIndex = index.value + step;
   // 超出的情况，太大了
@@ -96,7 +95,6 @@ const toggle = (step) => {
   }
   // 正常
   index.value = newIndex;
-  console.log(index.value)
 };
 onUnmounted(() => {
   clearInterval(timer);

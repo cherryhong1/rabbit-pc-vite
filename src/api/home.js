@@ -11,6 +11,7 @@ export const findBanner = () => {
 export const findNew = () => {
   return request('/home/new')
 }
+
 export const findHot = () => {
   return request('/home/hot')
 }
