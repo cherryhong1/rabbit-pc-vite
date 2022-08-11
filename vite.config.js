@@ -27,5 +27,8 @@ export default defineConfig({
         additionalData:'@import "./src/assets/styles/variables.less";'
       }
     }
+  },
+  server: {
+    host: '0.0.0.0'
   }
 })

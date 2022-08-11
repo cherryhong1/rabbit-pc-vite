@@ -4,7 +4,7 @@
       <template #right>
         <more path="/"></more>
       </template>
-      <div style="position:relative;height:426px">
+      <div style="position:relative;height:426px" ref="target">
         <Transition name="fade">
           <ul class="goods-list" v-if="goods.length" ref="panel">
             <li v-for="good in goods" :key="good.is">
@@ -27,10 +27,8 @@ import { findNew } from "@/api/home";
 import { ref } from "vue";
 import homePanel from "./home-panel.vue";
 import homeSkeleton from "./home-skeleton.vue";
-const goods = ref([]);
-findNew().then((data) => {
-  goods.value = data.result;
-});
+import { useLazyData } from "@/hooks"
+const {result:goods,target}=useLazyData(findNew)
 </script>
 
 <style lang="less" scoped>
