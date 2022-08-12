@@ -1,23 +1,21 @@
 import bgImg from "@/assets/images/bg.jpg";
 
-export const defineDirective = (app) => {
-  app.directive("lazyload", {
-    mounted(el, binding) {
-      const observer = new IntersectionObserver(
-        ([{ isIntersection }]) => {
-          if (isIntersection) {
-            observer.unobserve();
-            el.onerror = () => {
-              el.src = bgImg;
-            };
-            el.src = binding.value;
+export const  defineDirective = (app) => {
+  // 图片懒加载指令
+  app.directive('lazy', {
+    mounted (el, binding) {
+      const observer = new IntersectionObserver(([{ isIntersecting }]) => {
+        if (isIntersecting) {
+          observer.unobserve(el)
+          el.onerror = () => {
+              el.src = defaultImg
           }
-        },
-        {
-          threshold: 0.01,
+          el.src = binding.value
         }
-      );
-      observer.observe(el);
-    },
-  });
-};
+      }, {
+        threshold: 0.01
+      })
+      observer.observe(el)
+    }
+  })
+}

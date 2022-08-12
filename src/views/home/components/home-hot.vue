@@ -9,7 +9,7 @@
           <ul class="goods-list" v-if="goods.length" ref="panel">
             <li v-for="good in goods" :key="good.id">
               <router-link :to="`/product/${good.id}`">
-                <img :src="good.picture" alt="" />
+                <img v-lazy="good.picture" alt="" />
                 <p class="name">{{ good.title }}</p>
                 <p class="desc">{{ good.alt }}</p>
               </router-link>

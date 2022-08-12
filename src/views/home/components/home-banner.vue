@@ -23,10 +23,10 @@ const sliders = ref([])
   z-index: 98;
 }
 .carousel{
-  ::v-deep.carousel-btn.prev{
+  ::v-deep(.carousel-btn.prev){
     left: 270px;
   }
-  ::v-deep:carousel-btn.next{
+  ::v-deep(:carousel-btn.next){
     right: 250px;
   }
 }
