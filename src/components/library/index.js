@@ -1,3 +1,4 @@
+import { defineDirective } from "@/directives/index"
 const moduleFiles = import.meta.globEager('/src/components/library/*.vue')
 const pathList = []
 for(const path in moduleFiles) {
@@ -9,5 +10,6 @@ export default {
       const component = moduleFiles[fileName].default
       app.component(component.name,component)
     })
+    defineDirective(app)
   }
 }
