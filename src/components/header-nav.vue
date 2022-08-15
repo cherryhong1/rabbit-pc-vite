@@ -4,7 +4,7 @@
     <li class="home">
       <router-link to="/">首页</router-link>
     </li>
-    <li v-for="list in lists" :key="list.id" @mouseenter="show(list)" @mouseleave="hide(list)">
+    <li v-for="list in lists" :key="list.id" @mousemove="show(item)" @mouseenter="show(list)" @mouseleave="hide(list)">
     <router-link :to="`/category/${list.id}`" @click="hide(list)">{{list.name}}</router-link>
     <div class="layer">
       <ul>
