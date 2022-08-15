@@ -7,8 +7,8 @@
         :key="i"
         :class="{ fade: index === i }"
       >
-        <router-link to="/" v-if="slider.picture">
-          <img :src="slider.picture" alt="" />
+        <router-link to="/" v-if="slider.picture||slider.imgUrl">
+          <img :src="slider.picture?slider.picture:slider.imgUrl" alt="" />
         </router-link>
       </li>
     </ul>
