@@ -17,3 +17,7 @@ export const findAllCategory = () => {
 export const findTopCategory = (id) => {
   return request('/category','get',{id})
 }
+
+export const findSubCategory = (id) =>{
+  return request('/category/sub/filter','get', {id})
+}

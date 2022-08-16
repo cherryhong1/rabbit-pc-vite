@@ -2,14 +2,12 @@
   <div class="sub-category">
     <div class="container">
       <sub-bread></sub-bread>
-      <sub-filter></sub-filter>
     </div>
   </div>
 </template>
 
 <script setup>
-import subBread from './sub-bread.vue';
-import subFilter from './sub-filter.vue';
+import subBread from './components/sub-bread.vue';
 </script>
 
 <style lang="less" scoped>
