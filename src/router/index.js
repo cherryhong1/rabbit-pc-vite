@@ -19,14 +19,23 @@ const routes = [
         component: () => import('@/views/home/index')
       },
       {
-        path: 'category/:id',
+        path: '/category/:id',
         component: () => import('@/views/category/index')
       },
       {
-        path: 'category/sub/:id',
+        path: '/category/sub/:id',
         component: () => import('@/views/category/sub')
-      }
+      },
+      {
+        path: '/product/:id',
+        component: () => import ('@/views/goods/index')
+      },
+     
     ]
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login/index')
   }
 ]
 
