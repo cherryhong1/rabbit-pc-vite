@@ -4,10 +4,10 @@
       <div class="head">品牌：</div>
       <div class="body">
         <span
-          href="#"
           v-for="brand in filtersData.brands"
           :key="brand.id"
           :class="{ active: filtersData.selectedBrand === brand.id }"
+          @click="changeBrand(brand.id)"
           >{{ brand.name }}</span
         >
       </div>
@@ -15,7 +15,7 @@
     <div class="item" v-for="p in filtersData.saleProperties" :key="p.id">
       <div class="head">{{ p.name }}:</div>
       <div class="body">
-        <span href="#" v-for="attr in p.properties" :key="attr.id">
+        <span :class="{active:p.selectedProp === attr.id}" v-for="attr in p.properties" :key="attr.id" @click="changeAttr(p,attr.id)">
           {{ attr.name }}</span
         >
       </div>
@@ -35,10 +35,10 @@ import { useRoute } from "vue-router";
 import { findSubCategory } from "@/api/category";
 import { ref, watch } from "vue";
 
+const emits = defineEmits(["filter-change"]);
 const route = useRoute();
 let filtersData = ref([]);
 let filtersLoading = ref(false);
-
 watch(
   () => route.params.id,
   (newVal) => {
@@ -65,7 +65,37 @@ watch(
   {
     immediate: true,
   }
-);
+)
+
+const getFilterParams = () => {
+  const filterParams = {};
+  const attrs = [];
+  filterParams.brandId = filtersData.value.selectedBrand;
+  filtersData.value.saleProperties.forEach((item) => {
+    const attr = item.properties.find((p) => p.id === item.selectedProp);
+    if (attr && attr.id !== undefined) {
+      attrs.push({
+        groupName: item.name,
+        propertyName: attr.name,
+      });
+    }
+  });
+  if (attrs.length) filterParams.attrs = attrs;
+  return filterParams;
+};
+
+const changeBrand = (brandId) => {
+  if (filtersData.value.selectedBrand === brandId) return;
+  filtersData.value.selectedBrand = brandId;
+  emits("filter-change", getFilterParams());
+};
+
+const changeAttr = (p, attrId) => {
+  if (p.selectedProp === attrId) return;
+  p.selectedProp = attrId;
+  emits("filter-change", getFilterParams());
+};
+
 </script>
 
 <style lang="less" scoped>
@@ -86,13 +116,13 @@ watch(
         transition: all 1s;
         display: inline-block;
         &:hover,
-        &:active {
+        &.active {
           color: @xtxColor;
         }
       }
     }
   }
-  .skeleton{
+  .skeleton {
     padding: 10px 0;
   }
 }

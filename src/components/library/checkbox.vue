@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="checkbox">
 import { ref, watch } from "vue";
 import { useVModel } from "@vueuse/core";
 const props = defineProps({
@@ -15,12 +15,12 @@ const props = defineProps({
     default: false,
   },
 });
-const emits = defineEmits(["update:modelValue",change]);
+const emits = defineEmits(["update:modelValue", "change"]);
 
-let checked = useVModel(props,'modelValue',emits)
+let checked = useVModel(props, "modelValue", emits);
 const changeChecked = () => {
   const newVal = !checked.value;
-  checked.value = newVal
+  checked.value = newVal;
   emits("change", newVal);
 };
 
