@@ -67,7 +67,6 @@ watch(
 );
 const changeSort = (sortParams) => {
   resParams = { ...resParams, ...sortParams };
-  console.log('changeSort',resParams)
   resParams.page = 1;
   finished.value = false;
   goodsList.value = [];
@@ -75,7 +74,6 @@ const changeSort = (sortParams) => {
 };
 const changeFilter = (filterParams) => {
   resParams = { ...resParams, ...filterParams };
-  console.log('changeFilter',resParams)
   resParams.page = 1;
   finished.value = false;
   goodsList.value = [];

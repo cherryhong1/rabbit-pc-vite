@@ -31,7 +31,6 @@ import homeGoods from "./home-goods.vue";
 import { useLazyData } from "@/hooks";
 import { findGoods } from "@/api/home";
 const {result:list,target} = useLazyData(findGoods)
-console.log(list.value)
 </script>
 
 <style lang="less" scoped>

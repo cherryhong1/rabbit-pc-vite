@@ -1,4 +1,4 @@
-import { createVNode, render } from "vue";
+import { h, render } from "vue";
 import message from "./message.vue";
 
 const div = document.createElement("div");
@@ -7,8 +7,8 @@ document.body.appendChild(div);
 
 let timer = null;
 
-export default ({ type, text }) => {
-  const vNode = createVNode(message, { type, text });
+export default function Message({ type, text }){
+  const vNode = h(message, { type, text });
   render(vNode, div);
   clearTimeout(timer);
   timer = setTimeout(() => {

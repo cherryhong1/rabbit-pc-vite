@@ -1,6 +1,6 @@
 <template>
   <transition name="down">
-    <div class="massage" :style="style[type]" v-show="visible">
+    <div class="message" :style="style[type]" v-show="visible">
       <i class="iconfont" :class="[style[type].icon]"></i>
       <span class="text">{{ text }}</span>
     </div>
@@ -20,7 +20,6 @@ const props = defineProps({
     default: "",
   },
 });
-console.log(props.type)
 const visible = ref(false)
 onMounted(()=>{
   visible.value = true
@@ -53,7 +52,8 @@ const style = {
   height: 50px;
   position: fixed;
   left: 50%;
-  top: 50%;
+  top: 50px;
+  z-index: 999;
   margin-left: -150px;
   margin-top: -25px;
   padding: 0 25px;
@@ -79,6 +79,19 @@ const style = {
       transition: all .5s;
     }
     &-to{
+      transform: none;
+      opacity: 1;
+    }
+  }
+  &-leave{
+    &-to{
+      transform: translate3d(0,-75px,0);
+      opacity: 0;
+    }
+    &-active{
+      transition: all .5s;
+    }
+    &-from{
       transform: none;
       opacity: 1;
     }
