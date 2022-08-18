@@ -16,9 +16,6 @@
         </li>
       </ul>
     </div></li>
-    <li>
-      <router-link to="/login">请先登录</router-link>
-    </li>
   </ul>
 </template>
 

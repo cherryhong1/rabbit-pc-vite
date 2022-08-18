@@ -34,9 +34,12 @@
 import loginHeader from "./components/login-header.vue";
 import loginFooter from "./components/login-footer.vue";
 import loginForm from "./components/login-form.vue";
+
 import { ref } from "vue";
 
+
 const activeName = ref("account");
+
 </script>
 
 <style lang="less" scoped>
