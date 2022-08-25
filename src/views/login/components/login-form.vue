@@ -98,6 +98,7 @@
         </div>
       </div>
       <div class="btn" @click="login">登录</div>
+      <Field as="test" v-model="test" name="isAgree"></Field>
     </Form>
     <div class="action">
       <img
@@ -129,7 +130,7 @@ import Message from "@/components/library/message/message";
 const route = useRoute();
 const router = useRouter();
 const store = useStore();
-
+const test = ref(true)
 const isMsgLogin = ref(false);
 const formCom = ref(null);
 const form = reactive({

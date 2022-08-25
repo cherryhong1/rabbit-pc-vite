@@ -26,7 +26,7 @@
         v-if="currCategory && currCategory.brands && currCategory.brands.length"
       >
         <li v-for="item in currCategory.brands" :key="item.id" class="brand">
-          <router-link to="/">
+          <router-link :to="`/product/${item.id}`">
             <img :src="item.picture" alt="" />
             <div class="info">
               <p class="place">
@@ -43,7 +43,7 @@
         v-if="currCategory && currCategory.goods && currCategory.goods.length"
       >
         <li v-for="item in currCategory.goods" :key="item.id">
-          <router-link to="/">
+          <router-link :to="`/product/${item.id}`">
             <img :src="item.picture" alt="" />
             <div class="info">
               <p class="name ellipsis-2">{{ item.name }}</p>
