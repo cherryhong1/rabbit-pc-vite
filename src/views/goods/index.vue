@@ -19,6 +19,7 @@
         </div>
         <div class="spec">
           <goods-name :goods="goods"></goods-name>
+          <goods-sku :goods="goods" @change="changeSku"></goods-sku>
         </div>
       </div>
       <!--  商品推荐 -->
@@ -44,6 +45,7 @@ import goodsRelevant from "./components/goods-relevant.vue";
 import goodsName from "./components/goods-name.vue";
 import goodsImages from "./components/goods-images.vue";
 import goodsSales from "./components/goods-sales.vue";
+import goodsSku from "./components/goods-sku.vue";
 const useGoods = () => {
   const goods = ref(null);
   const route = useRoute();
@@ -51,10 +53,17 @@ const useGoods = () => {
     () => route.params.id,
     (newValue) => {
       if (newValue && `/product/${newValue}` === route.path) {
-        findGoods(newValue).then((res) => {
+        findGoods(newValue).then(({result}) => {
           goods.value = null;
+          result.skus.forEach(sku=>{
+            const sortSpects = []
+            result.specs.forEach(spec=>{
+              sortSpects.push(sku.specs.find(item=>item.name === spec.name))
+            })
+            sku.specs = sortSpects
+          })
           nextTick(() => {
-            goods.value = res.result;
+            goods.value = result;
           });
         });
       }
@@ -64,6 +73,13 @@ const useGoods = () => {
   return goods
 };
 const goods = useGoods()
+const changeSku = (sku) =>{
+  if(sku.skuId){
+    goods.value.price =sku.price
+    goods.value.oldPrice = sku.oldPrice
+    goods.value.inventory = sku.inventory
+  }
+}
 </script>
 
 <style lang="less" scoped>
