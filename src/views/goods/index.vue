@@ -20,14 +20,16 @@
         <div class="spec">
           <goods-name :goods="goods"></goods-name>
           <goods-sku :goods="goods" @change="changeSku"></goods-sku>
+          <numBox v-model="num" label="数量" :max="goods.inventory"></numBox>
+          <buttonBox type="primary" style="margin-top:20px;">加入购物车</buttonBox>
         </div>
       </div>
       <!--  商品推荐 -->
-      <goodsRelevant></goodsRelevant>
+      <goodsRelevant :goodsId="goods.id"></goodsRelevant>
       <!--  商品详情 -->
       <div class="goods-footer">
         <div class="goods-article">
-          <div class="goods-tabs"></div>
+          <goodsTabs :goods="goods"></goodsTabs>
           <div class="goods-warn"></div>
         </div>
         <!--  专题推荐 -->
@@ -46,6 +48,7 @@ import goodsName from "./components/goods-name.vue";
 import goodsImages from "./components/goods-images.vue";
 import goodsSales from "./components/goods-sales.vue";
 import goodsSku from "./components/goods-sku.vue";
+import goodsTabs from "./components/goods-tabs.vue";
 const useGoods = () => {
   const goods = ref(null);
   const route = useRoute();
@@ -80,6 +83,7 @@ const changeSku = (sku) =>{
     goods.value.inventory = sku.inventory
   }
 }
+const num = ref(1)
 </script>
 
 <style lang="less" scoped>
@@ -103,10 +107,6 @@ const changeSku = (sku) =>{
   .goods-article {
     width: 940px;
     margin-right: 20px;
-    .goods-tabs {
-      min-height: 600px;
-      background: #fff;
-    }
     .goods-warn {
       min-height: 600px;
       background: #fff;

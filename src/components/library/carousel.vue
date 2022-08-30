@@ -7,15 +7,30 @@
         :key="i"
         :class="{ fade: index === i }"
       >
-        <router-link to="/" v-if="slider.picture||slider.imgUrl">
-          <img :src="slider.picture?slider.picture:slider.imgUrl" alt="" />
-        </router-link>
+        <template v-if="slider.hrefUrl">
+          <router-link :to="slider.hrefUrl" v-if="slider.picture || slider.imgUrl">
+            <img
+              :src="slider.picture ? slider.picture : slider.imgUrl"
+              alt=""
+            />
+          </router-link>
+        </template>
+        <div v-else class="slider">
+          <router-link v-for="goods in  slider" :key="goods.id" :to="`/product/${goods.id}`" >
+            <img
+              :src="goods.picture ? goods.picture : goods.imgUrl"
+              alt=""
+            />
+            <p class="name ellipsis"> {{goods.name}}</p>
+            <p class="price">{{goods.price}}</p>
+          </router-link>
+        </div>
       </li>
     </ul>
-    <a href="javascript;" class="carousel-btn prev" @click="toggle(-1)">
+    <a href="javascript:;" class="carousel-btn prev" @click="toggle(-1)">
       <i class="iconfont icon-angle-left"></i>
     </a>
-    <a href="javascript;" class="carousel-btn next" @click="toggle(1)">
+    <a href="javascript:;" class="carousel-btn next" @click="toggle(1)">
       <i class="iconfont icon-angle-right"></i>
     </a>
     <div class="carousel-indicator">
@@ -174,6 +189,30 @@ onUnmounted(() => {
   &:hover {
     .carousel-btn {
       opacity: 1;
+    }
+  }
+  .slider{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    > a{
+      width: 240px;
+      text-align: center;
+      img{
+        padding: 20px;
+        width: 230px!important;
+        height: 230px!important;
+      }
+      .name{
+        font-size: 16px;
+        color: #666;
+        padding: 0 40px;
+      }
+      .price{
+        color: @xtxColor;
+        font-size: 16px;
+        margin-top: 15px;
+      }
     }
   }
 }

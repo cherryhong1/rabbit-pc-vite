@@ -92,9 +92,9 @@
             @change="changeCheck"
           ></Field>
           <span>我已同意</span>
-          <a href="javascript;;">《隐私条款》</a>
+          <a href="javascript:;">《隐私条款》</a>
           <span>和</span>
-          <a href="javascript;;">《服务条款》</a>
+          <a href="javascript:;">《服务条款》</a>
         </div>
       </div>
       <div class="btn" @click="login">登录</div>
@@ -106,8 +106,8 @@
         alt=""
       />
       <div class="url">
-        <a href="javascript;;">忘记密码</a>
-        <a href="javascript;;">免费注册</a>
+        <a href="javascript:;">忘记密码</a>
+        <a href="javascript:;">免费注册</a>
       </div>
     </div>
   </div>
