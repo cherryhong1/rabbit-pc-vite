@@ -51,6 +51,7 @@ const route = useRoute();
 const sliders = ref([]);
 findBanner().then((result) => {
   sliders.value = result.result;
+  console.log('sliders.value',sliders.value)
 });
 
 const topCategory = computed(() => {

@@ -7,8 +7,8 @@
         :key="i"
         :class="{ fade: index === i }"
       >
-        <template v-if="slider.hrefUrl">
-          <router-link :to="slider.hrefUrl" v-if="slider.picture || slider.imgUrl">
+        <template v-if="slider.picture">
+          <router-link to="/" v-if="slider.picture || slider.imgUrl">
             <img
               :src="slider.picture ? slider.picture : slider.imgUrl"
               alt=""
@@ -62,13 +62,14 @@ const props = defineProps({
     default: false,
   },
 });
+console.log(props.sliders)
 const index = ref(0);
 let timer = null;
 const autoPlayFn = () => {
   clearInterval(timer);
   timer = setInterval(() => {
     index.value++;
-    if (index.value >= props.sliders.length) {
+    if (index.value >= props.sliders?.length) {
       index.value = 0;
     }
   }, props.duration);
@@ -90,7 +91,7 @@ const stop = () => {
   }
 };
 const start = () => {
-  if (props.sliders.length && props.autoPlay) {
+  if (props.sliders?.length && props.autoPlay) {
     autoPlayFn();
   }
 };
@@ -99,13 +100,13 @@ const toggle = (step) => {
   // 将要改变的索引
   const newIndex = index.value + step;
   // 超出的情况，太大了
-  if (newIndex > props.sliders.length - 1) {
+  if (newIndex > props.sliders?.length - 1) {
     index.value = 0;
     return;
   }
   // 超出的情况，太小了
   if (newIndex < 0) {
-    index.value = props.sliders.length - 1;
+    index.value = props.sliders?.length - 1;
     return;
   }
   // 正常

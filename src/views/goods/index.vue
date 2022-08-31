@@ -21,7 +21,9 @@
           <goods-name :goods="goods"></goods-name>
           <goods-sku :goods="goods" @change="changeSku"></goods-sku>
           <numBox v-model="num" label="数量" :max="goods.inventory"></numBox>
-          <buttonBox type="primary" style="margin-top:20px;">加入购物车</buttonBox>
+          <buttonBox type="primary" style="margin-top: 20px"
+            >加入购物车</buttonBox
+          >
         </div>
       </div>
       <!--  商品推荐 -->
@@ -40,7 +42,7 @@
 </template>
 
 <script setup>
-import { nextTick, ref, watch } from "vue";
+import { getCurrentInstance, nextTick, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { findGoods } from "@/api/product";
 import goodsRelevant from "./components/goods-relevant.vue";
@@ -49,6 +51,7 @@ import goodsImages from "./components/goods-images.vue";
 import goodsSales from "./components/goods-sales.vue";
 import goodsSku from "./components/goods-sku.vue";
 import goodsTabs from "./components/goods-tabs.vue";
+import { useStore } from "vuex";
 const useGoods = () => {
   const goods = ref(null);
   const route = useRoute();
@@ -56,15 +59,17 @@ const useGoods = () => {
     () => route.params.id,
     (newValue) => {
       if (newValue && `/product/${newValue}` === route.path) {
-        findGoods(newValue).then(({result}) => {
+        findGoods(newValue).then(({ result }) => {
           goods.value = null;
-          result.skus.forEach(sku=>{
-            const sortSpects = []
-            result.specs.forEach(spec=>{
-              sortSpects.push(sku.specs.find(item=>item.name === spec.name))
-            })
-            sku.specs = sortSpects
-          })
+          result.skus.forEach((sku) => {
+            const sortSpects = [];
+            result.specs.forEach((spec) => {
+              sortSpects.push(
+                sku.specs.find((item) => item.name === spec.name)
+              );
+            });
+            sku.specs = sortSpects;
+          });
           nextTick(() => {
             goods.value = result;
           });
@@ -73,17 +78,46 @@ const useGoods = () => {
     },
     { immediate: true }
   );
-  return goods
+  return goods;
 };
-const goods = useGoods()
-const changeSku = (sku) =>{
-  if(sku.skuId){
-    goods.value.price =sku.price
-    goods.value.oldPrice = sku.oldPrice
-    goods.value.inventory = sku.inventory
+const num = ref(1);
+const curSku = ref(null);
+const instance = getCurrentInstance();
+const store = useStore();
+const goods = useGoods();
+const changeSku = (sku) => {
+  if (sku.skuId) {
+    goods.value.price = sku.price;
+    goods.value.oldPrice = sku.oldPrice;
+    goods.value.inventory = sku.inventory;
+    curSku.value = sku;
+  } else {
+    curSku.value = null;
   }
-}
-const num = ref(1)
+};
+const insertCart = () => {
+  if (!curSku.value) {
+    instance.proxy.$message("请选择商品规格");
+  }
+  if (num.value > goods.inventory) {
+    instance.proxy.$message("库存不足");
+  }
+  store.dispatch("cart/insertCart", {
+    id: goods.value.id,
+    skuId: currSku.value.skuId,
+    name: goods.value.name,
+    picture: goods.value.mainPictures[0],
+    price: currSku.value.price,
+    nowPrice: currSku.value.price,
+    count: num.value,
+    attrsText: currSku.value.specsText,
+    selected: true,
+    isEffective: true,
+    stock: currSku.value.inventory,
+  }).then(()=>{
+    instance.proxy.$message('加入购物城成功', 'success')
+  });
+};
 </script>
 
 <style lang="less" scoped>
