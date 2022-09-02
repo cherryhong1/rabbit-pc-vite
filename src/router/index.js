@@ -40,6 +40,10 @@ const routes = [
   {
     path: '/login',
     component: () => import('@/views/login/index')
+  },
+  {
+    path:'/i18n',
+    component: () => import('@/views/i18n/index')
   }
 ]
 
