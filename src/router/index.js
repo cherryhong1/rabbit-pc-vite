@@ -8,6 +8,7 @@
  * @LastEditTime: 2022-08-05 15:19:18
  */
 import { createRouter, createWebHashHistory } from 'vue-router'
+import store from  "@/store"
 const Layout = () => import('@/views/Layout')
 const routes = [
   {
@@ -58,5 +59,13 @@ const router = createRouter({
     }
   }
 })
-
+router.beforeEach((to,from,next)=>{
+  const token = store.state.user?.profile?.token
+  if(to.path.startsWith('/member/'&&!token)){
+    next({path:'login',query:{
+      redirectUrl:to.fullPath
+    }})
+  }
+  next()
+})
 export default router

@@ -98,7 +98,6 @@
         </div>
       </div>
       <div class="btn" @click="login">登录</div>
-      <Field as="test" v-model="test" name="isAgree"></Field>
     </Form>
     <div class="action">
       <img
@@ -130,7 +129,6 @@ import Message from "@/components/library/message/message";
 const route = useRoute();
 const router = useRouter();
 const store = useStore();
-const test = ref(true)
 const isMsgLogin = ref(false);
 const formCom = ref(null);
 const form = reactive({
@@ -190,8 +188,15 @@ const login = async () => {
       token,
       mobile,
     });
-    Message({ type: "success", text: "登录成功" });
-    router.push(route.query.redirectUrl || "/");
+    store
+      .dispatch("cart/mergeLocalCart")
+      .then(() => {
+        Message({ type: "success", text: "登录成功" });
+        router.push(route.query.redirectUrl || "/");
+      })
+      .catch((e) => {
+        Message({ type: "error", text: e.response.data.message||"登录失败" });
+      });
   }
 };
 const changeCheck = () => {

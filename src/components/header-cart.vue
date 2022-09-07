@@ -49,13 +49,15 @@ import { useStore } from "vuex";
 const store = useStore();
 store.dispatch("cart/findCartList");
 const deleteCart = (skuId) => {
+  console.log('skuId',skuId)
   store
     .dispatch("cart/deleteCart", skuId)
     .then((res) => {
-      Message( {text:"删除成功", type: success });
+      console.log('res',res)
+      Message( {text:"删除成功", type: 'success' });
     })
     .catch((e) => {
-      Message( {text:"删除失败", type: warn });
+      Message( {text:"删除失败", type: 'warn' });
     });
 };
 </script>
@@ -93,8 +95,10 @@ const deleteCart = (skuId) => {
       opacity: 1;
       transform: none;
     }
-  }
+  } 
   .layer {
+    background: #fff;
+    z-index: 9999;
     opacity: 0;
     transition: all 0.4s 0.2s;
     transform: translateY(-200px) scale(1, 0);

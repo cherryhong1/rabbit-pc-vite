@@ -21,7 +21,7 @@
           <goods-name :goods="goods"></goods-name>
           <goods-sku :goods="goods" @change="changeSku"></goods-sku>
           <numBox v-model="num" label="数量" :max="goods.inventory"></numBox>
-          <buttonBox type="primary" style="margin-top: 20px"
+          <buttonBox type="primary" style="margin-top: 20px" @click="insertCart"
             >加入购物车</buttonBox
           >
         </div>
@@ -96,27 +96,29 @@ const changeSku = (sku) => {
   }
 };
 const insertCart = () => {
-  if (!curSku.value) {
-    instance.proxy.$message("请选择商品规格");
+  if (curSku.value === null) {
+    return instance.proxy.$message({ type: "warn", text: "请选择商品规格" });
   }
   if (num.value > goods.inventory) {
-    instance.proxy.$message("库存不足");
+    return instance.proxy.$message({ text: "库存不足", type: "warn" });
   }
-  store.dispatch("cart/insertCart", {
-    id: goods.value.id,
-    skuId: currSku.value.skuId,
-    name: goods.value.name,
-    picture: goods.value.mainPictures[0],
-    price: currSku.value.price,
-    nowPrice: currSku.value.price,
-    count: num.value,
-    attrsText: currSku.value.specsText,
-    selected: true,
-    isEffective: true,
-    stock: currSku.value.inventory,
-  }).then(()=>{
-    instance.proxy.$message('加入购物城成功', 'success')
-  });
+  store
+    .dispatch("cart/insertCart", {
+      id: goods.value.id,
+      skuId: curSku.value.skuId,
+      name: goods.value.name,
+      picture: goods.value.mainPictures[0],
+      price: curSku.value.price,
+      nowPrice: curSku.value.price,
+      count: num.value,
+      attrsText: curSku.value.specsText,
+      selected: true,
+      isEffective: true,
+      stock: curSku.value.inventory,
+    })
+    .then(() => {
+      instance.proxy.$message({text:"加入购物城成功", type:"success"});
+    });
 };
 </script>
 

@@ -16,5 +16,5 @@ export default {
     setUser (state, payload) {
       state.profile = payload
     }
-  }
+  },
 }

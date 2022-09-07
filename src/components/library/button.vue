@@ -39,13 +39,13 @@ const props = defineProps({
       line-height: 50px;
       font-size: 16px;
     }
-    .small{
+    &.small{
       width: 100px;
       height: 32px;
       line-height: 32px;
       font-size: 14px;
     }
-    .mini{
+    &.mini{
       width: 60px;
       height: 32px;
       line-height: 32px;
