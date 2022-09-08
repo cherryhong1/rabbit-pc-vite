@@ -20,13 +20,13 @@
       <buttonBox class="btn" @click="dialogVisible === true">切换地址</buttonBox>
       <buttonBox class="btn">添加地址</buttonBox>
     </div>
-    <dialog title="切换收获地址" :visible="dialogVisible">
+    <!-- <dialog title="切换收获地址" :visible="dialogVisible">
       对话框内容
       <template >
         <buttonBox type="gray" style="margin-right: 20px"  @click="dialogVisible === false">取消</buttonBox>
         <buttonBox type="primary" @click="dialogVisible === false">确定</buttonBox>
       </template>
-    </dialog>
+    </dialog> -->
   </div>
 </template>
 <script setup>

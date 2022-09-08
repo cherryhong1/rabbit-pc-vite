@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script setup name="dialog">
+<script setup name="dialogBox">
 import {  ref, watch } from 'vue';
 
 const props = defineProps({
