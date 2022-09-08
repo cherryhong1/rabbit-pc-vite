@@ -17,9 +17,16 @@
       <a href="javascript:;">修改地址</a>
     </div>
     <div class="action">
-      <buttonBox class="btn">切换地址</buttonBox>
+      <buttonBox class="btn" @click="dialogVisible === true">切换地址</buttonBox>
       <buttonBox class="btn">添加地址</buttonBox>
     </div>
+    <dialog title="切换收获地址" :visible="dialogVisible">
+      对话框内容
+      <template >
+        <buttonBox type="gray" style="margin-right: 20px"  @click="dialogVisible === false">取消</buttonBox>
+        <buttonBox type="primary" @click="dialogVisible === false">确定</buttonBox>
+      </template>
+    </dialog>
   </div>
 </template>
 <script setup>
@@ -42,6 +49,7 @@ if (props.list.length) {
     showAddress.value = props.list[0];
   }
 }
+const dialogVisible = ref(false)
 </script>
 <style scoped lang="less">
 .checkout-address {
