@@ -10,7 +10,7 @@
         <!-- 收货地址 -->
         <h3 class="box-title">收货地址</h3>
         <div class="box-body">
-          <checkAddress :list="checkoutInfo?.userAddresses"></checkAddress>
+          <checkAddress :list="checkoutInfo?.userAddresses" @change="changeAddress"></checkAddress>
         </div>
         <!-- 商品信息 -->
         <h3 class="box-title">商品信息</h3>
@@ -84,11 +84,17 @@
 <script setup>
 import checkAddress from "./components/checkout-address.vue";
 import { findCheckoutInfo } from "@/api/order";
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 const checkoutInfo = ref(null);
 findCheckoutInfo().then(({ result }) => {
   checkoutInfo.value = result;
 });
+const requestParams = reactive({
+  addressId:null
+})
+const changeAddress = (id) =>{
+  requestParams.addressId = id
+}
 </script>
 <style scoped lang="less">
 .pay-checkout-page {

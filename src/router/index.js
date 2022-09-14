@@ -49,10 +49,10 @@ const routes = [
     path: "/i18n",
     component: () => import("@/views/i18n/index"),
   },
-  {
-    test:'/test',
-    component: () => import("@/views/test/index")
-  }
+  // {
+  //   test:'/test',
+  //   component: () => import("@/views/test/index")
+  // }
 ];
 
 const router = createRouter({

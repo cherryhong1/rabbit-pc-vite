@@ -20,13 +20,27 @@
       <buttonBox class="btn" @click="dialogVisible === true">切换地址</buttonBox>
       <buttonBox class="btn">添加地址</buttonBox>
     </div>
-    <!-- <dialog title="切换收获地址" :visible="dialogVisible">
-      对话框内容
-      <template >
+    <dialogBox title="切换收获地址" :visible="dialogVisible">
+      <div class="text item" v-for="item in list " :key="item.id">
+        <ul>
+        <li>
+          <span>收<i />货<i />人：</span>{{ item.receiver }}
+        </li>
+        <li><span>联系方式：</span>{{ item.contact }}</li>
+        <li>
+          <span>收货地址：</span
+          >{{
+            item.fullLocation.replace(/ /g, "") + item.address
+          }}
+        </li>
+      </ul>
+      </div>
+
+      <template #foot>
         <buttonBox type="gray" style="margin-right: 20px"  @click="dialogVisible === false">取消</buttonBox>
         <buttonBox type="primary" @click="dialogVisible === false">确定</buttonBox>
       </template>
-    </dialog> -->
+    </dialogBox>
   </div>
 </template>
 <script setup>
@@ -38,6 +52,7 @@ const props = defineProps({
     default: () => [],
   },
 });
+const emits = defineEmits(['change'])
 const showAddress = ref(null);
 if (props.list.length) {
   const defaultAddress = props.list.find((item) => {
@@ -49,6 +64,7 @@ if (props.list.length) {
     showAddress.value = props.list[0];
   }
 }
+emits('change',showAddress.value?.id)
 const dialogVisible = ref(false)
 </script>
 <style scoped lang="less">

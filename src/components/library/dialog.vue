@@ -9,9 +9,8 @@
         <slot></slot>
       </div>
       <div class="footer">
-        <slot name="right"/>
-        <buttonBox type="gray" style="margin-right: 20px"  @click="dialogVisible === false">取消</buttonBox>
-        <buttonBox type="primary" @click="dialogVisible === false">确定</buttonBox>
+        <slot name="foot"/>
+
       </div>
     </div>
   </div>
